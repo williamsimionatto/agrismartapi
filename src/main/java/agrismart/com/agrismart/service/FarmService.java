@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import agrismart.com.agrismart.domain.Farm;
-import agrismart.com.agrismart.dto.AddFarmDTO;
-import agrismart.com.agrismart.dto.EditFarmDTO;
+import agrismart.com.agrismart.dto.farm.AddFarmDTO;
+import agrismart.com.agrismart.dto.farm.EditFarmDTO;
 import agrismart.com.agrismart.repository.FarmRepository;
 import agrismart.com.agrismart.service.exceptions.ObjectnotFoundException;
 

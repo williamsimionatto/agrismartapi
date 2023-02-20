@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import agrismart.com.agrismart.domain.Farm;
-import agrismart.com.agrismart.dto.AddFarmDTO;
-import agrismart.com.agrismart.dto.EditFarmDTO;
+import agrismart.com.agrismart.dto.farm.AddFarmDTO;
+import agrismart.com.agrismart.dto.farm.EditFarmDTO;
 import agrismart.com.agrismart.service.FarmService;
 import agrismart.com.agrismart.service.exceptions.ObjectnotFoundException;
 

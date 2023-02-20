@@ -3,12 +3,11 @@ package agrismart.com.agrismart.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import agrismart.com.agrismart.dto.farm.AddFarmDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
-
-import agrismart.com.agrismart.dto.AddFarmDTO;
 
 @Getter
 @Setter

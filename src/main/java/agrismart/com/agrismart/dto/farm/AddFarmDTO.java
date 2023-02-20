@@ -1,4 +1,4 @@
-package agrismart.com.agrismart.dto;
+package agrismart.com.agrismart.dto.farm;
 
 import java.io.Serializable;
 
