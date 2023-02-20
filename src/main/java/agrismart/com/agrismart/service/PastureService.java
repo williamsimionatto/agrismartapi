@@ -1,5 +1,7 @@
 package agrismart.com.agrismart.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,5 +23,9 @@ public class PastureService {
     Pasture pasture = new Pasture(data);
     pasture.setFarm(farm);
     return pastureRepository.save(pasture);
+  }
+
+  public List<Pasture> allPastures() {
+    return pastureRepository.findAll();
   }
 }

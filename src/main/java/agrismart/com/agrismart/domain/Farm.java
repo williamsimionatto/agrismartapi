@@ -27,7 +27,7 @@ public class Farm implements Serializable {
     @Column
     private String address;
 
-    @OneToMany(mappedBy = "farm", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "farm", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonManagedReference
     private List<Pasture> pastures;
 
