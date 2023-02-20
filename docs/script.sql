@@ -1,24 +1,24 @@
 CREATE DATABASE IF NOT EXISTS agrismart;
 
-CREATE TABLE farm (
+CREATE TABLE IF NOT EXISTS farm (
   id INT PRIMARY KEY AUTO_INCREMENT,
   name VARCHAR(255) NOT NULL,
   address VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE animal_type (
+CREATE TABLE IF NOT EXISTS animal_type (
   id INT PRIMARY KEY AUTO_INCREMENT,
   name VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE animal_breed (
+CREATE TABLE IF NOT EXISTS animal_breed (
   id INT PRIMARY KEY AUTO_INCREMENT,
   name VARCHAR(255)  NOT NULL,
   type_id INT NOT NULL,
   FOREIGN KEY (type_id) REFERENCES animal_type(id)
 );
 
-CREATE TABLE animal (
+CREATE TABLE IF NOT EXISTS animal (
   id INT PRIMARY KEY AUTO_INCREMENT,
   farm_id INT  NOT NULL,
   code VARCHAR(255) NOT NULL, 
@@ -33,14 +33,14 @@ CREATE TABLE animal (
   FOREIGN KEY (breed_id) REFERENCES animal_breed(id)
 );
 
-CREATE TABLE food (
+CREATE TABLE IF NOT EXISTS food (
   id INT PRIMARY KEY AUTO_INCREMENT,
   name VARCHAR(255) NOT NULL,
   cost FLOAT NOT NULL,
   unit VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE nutrition (
+CREATE TABLE IF NOT EXISTS nutrition (
   id INT PRIMARY KEY AUTO_INCREMENT,
   food_id INT NOT NULL,
   quantity FLOAT NOT NULL,
@@ -51,7 +51,7 @@ CREATE TABLE nutrition (
   FOREIGN KEY (food_id) REFERENCES food(id)
 );
 
-CREATE TABLE animal_nutrition (
+CREATE TABLE IF NOT EXISTS animal_nutrition (
   id INT PRIMARY KEY AUTO_INCREMENT,
   animal_id INT NOT NULL,
   nutrition_id INT NOT NULL,
@@ -61,7 +61,7 @@ CREATE TABLE animal_nutrition (
   FOREIGN KEY (nutrition_id) REFERENCES nutrition(id)
 );
 
-CREATE TABLE animal_health (
+CREATE TABLE IF NOT EXISTS animal_health (
   id INT PRIMARY KEY AUTO_INCREMENT,
   animal_id INT NOT NULL,
   date DATE NOT NULL,
@@ -70,7 +70,7 @@ CREATE TABLE animal_health (
   FOREIGN KEY (animal_id) REFERENCES animal(id)
 );
 
-CREATE TABLE animal_vaccine (
+CREATE TABLE IF NOT EXISTS animal_vaccine (
   id INT PRIMARY KEY AUTO_INCREMENT,
   animal_id INT NOT NULL,
   date DATE NOT NULL,
@@ -78,7 +78,7 @@ CREATE TABLE animal_vaccine (
   FOREIGN KEY (animal_id) REFERENCES animal(id)
 );
 
-CREATE TABLE animal_pregnancy (
+CREATE TABLE IF NOT EXISTS animal_pregnancy (
   id INT PRIMARY KEY AUTO_INCREMENT,
   animal_id INT NOT NULL,
   date DATE NOT NULL,
@@ -87,7 +87,7 @@ CREATE TABLE animal_pregnancy (
   FOREIGN KEY (animal_id) REFERENCES animal(id)
 );
 
-CREATE TABLE animal_milk (
+CREATE TABLE IF NOT EXISTS animal_milk (
   id INT PRIMARY KEY AUTO_INCREMENT,
   animal_id INT NOT NULL,
   date DATE NOT NULL,
@@ -95,7 +95,7 @@ CREATE TABLE animal_milk (
   FOREIGN KEY (animal_id) REFERENCES animal(id)
 );
 
-CREATE TABLE pasture (
+CREATE TABLE IF NOT EXISTS pasture (
   id INT PRIMARY KEY AUTO_INCREMENT,
   farm_id INT NOT NULL,
   name VARCHAR(255) NOT NULL,
@@ -103,7 +103,7 @@ CREATE TABLE pasture (
   FOREIGN KEY (farm_id) REFERENCES farm(id)
 );
 
-CREATE TABLE animal_location (
+CREATE TABLE IF NOT EXISTS animal_location (
   id INT PRIMARY KEY AUTO_INCREMENT,
   animal_id INT NOT NULL,
   date DATE NOT NULL,
@@ -112,7 +112,7 @@ CREATE TABLE animal_location (
   FOREIGN KEY (pasture_id) REFERENCES pasture(id)
 );
 
-CREATE TABLE user (
+CREATE TABLE IF NOT EXISTS user (
   id INT PRIMARY KEY AUTO_INCREMENT,
   username VARCHAR(255) NOT NULL,
   password VARCHAR(255) NOT NULL,
