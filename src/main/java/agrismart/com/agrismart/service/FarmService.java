@@ -7,7 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import agrismart.com.agrismart.domain.Farm;
-import agrismart.com.agrismart.dto.AddFarmDTO;
+import agrismart.com.agrismart.dto.farm.AddFarmDTO;
+import agrismart.com.agrismart.dto.farm.EditFarmDTO;
 import agrismart.com.agrismart.repository.FarmRepository;
 import agrismart.com.agrismart.service.exceptions.ObjectnotFoundException;
 
@@ -31,7 +32,7 @@ public class FarmService {
         return farmRepository.save(newFarm);
     }
 
-    public Farm update(Long id, AddFarmDTO data) {
+    public Farm update(Long id, EditFarmDTO data) {
         Farm farm = getFarm(id);
         farm.setName(data.getName());
         farm.setAddress(data.getAddress());
@@ -39,9 +40,14 @@ public class FarmService {
     }
 
     public void delete(Long id) {
-        if (!farmRepository.existsById(id)) {
+        if (!exists(id)) {
             throw new ObjectnotFoundException("Farm not found");
         }
+
         farmRepository.deleteById(id);
+    }
+
+    public Boolean exists(Long id) {
+        return farmRepository.existsById(id);
     }
 }

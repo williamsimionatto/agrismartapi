@@ -15,7 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import agrismart.com.agrismart.domain.Farm;
-import agrismart.com.agrismart.dto.AddFarmDTO;
+import agrismart.com.agrismart.dto.farm.AddFarmDTO;
+import agrismart.com.agrismart.dto.farm.EditFarmDTO;
 import agrismart.com.agrismart.service.FarmService;
 import agrismart.com.agrismart.service.exceptions.ObjectnotFoundException;
 
@@ -32,7 +33,7 @@ public class FarmController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Farm> getMovie(@PathVariable Long id) {
+    public ResponseEntity<Farm> getFarm(@PathVariable Long id) {
         Farm farm = farmService.getFarm(id);
         return new ResponseEntity<Farm>(farm, HttpStatus.OK);
     }
@@ -44,7 +45,7 @@ public class FarmController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Farm> updateFarm(@PathVariable Long id, @RequestBody AddFarmDTO data) {
+    public ResponseEntity<Farm> updateFarm(@PathVariable Long id, @RequestBody EditFarmDTO data) {
         Farm farm = farmService.update(id, data);
         return new ResponseEntity<Farm>(farm, HttpStatus.OK);
     }
