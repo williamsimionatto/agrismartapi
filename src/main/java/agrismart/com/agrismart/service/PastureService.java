@@ -9,6 +9,7 @@ import agrismart.com.agrismart.domain.Farm;
 import agrismart.com.agrismart.domain.Pasture;
 import agrismart.com.agrismart.dto.pasture.AddPastureDTO;
 import agrismart.com.agrismart.repository.PastureRepository;
+import agrismart.com.agrismart.service.exceptions.ObjectnotFoundException;
 
 @Service
 public class PastureService {
@@ -27,5 +28,9 @@ public class PastureService {
 
   public List<Pasture> allPastures() {
     return pastureRepository.findAll();
+  }
+
+  public Pasture getPasture(Long id) {
+    return pastureRepository.findById(id).orElseThrow(() -> new ObjectnotFoundException("Pasture not found"));
   }
 }
