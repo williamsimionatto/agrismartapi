@@ -5,6 +5,8 @@ import lombok.*;
 
 import java.io.Serializable;
 
+import agrismart.com.agrismart.dto.AddFarmDTO;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -22,4 +24,9 @@ public class Farm implements Serializable {
     @NonNull
     @Column
     private String address;
+
+    public Farm(AddFarmDTO farm) {
+        this.name = farm.getName();
+        this.address = farm.getAddress();
+    }
 }
