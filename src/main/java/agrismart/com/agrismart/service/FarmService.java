@@ -37,4 +37,14 @@ public class FarmService {
         newFarm.setAddress(farm.getAddress());
         return farmRepository.save(newFarm);
     }
+
+    public void delete(Long id) {
+        Farm farm = getFarm(id);
+
+        if (farm == null) {
+            throw new ObjectnotFoundException("Farm not found");
+        }
+ 
+        farmRepository.deleteById(id);
+    }
 }
