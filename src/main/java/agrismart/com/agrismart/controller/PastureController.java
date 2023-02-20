@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import agrismart.com.agrismart.domain.Pasture;
 import agrismart.com.agrismart.dto.pasture.AddPastureDTO;
+import agrismart.com.agrismart.service.FarmService;
 import agrismart.com.agrismart.service.PastureService;
+import agrismart.com.agrismart.service.exceptions.ObjectnotFoundException;
 
 import java.util.List;
 
@@ -20,10 +22,17 @@ public class PastureController {
   @Autowired
   private PastureService pastureService;
 
+  @Autowired
+  private FarmService farmService;
+
   @PostMapping
   public ResponseEntity<Pasture> createPasture(@RequestBody AddPastureDTO data) {
-    Pasture pasture = pastureService.save(data);
-    return ResponseEntity.ok(pasture);
+      if (!farmService.exists(data.getFarmId())) {
+        throw new ObjectnotFoundException("Farm: " + data.getFarmId() + " not found");
+      }
+  
+      Pasture pasture = pastureService.save(data);
+      return ResponseEntity.ok(pasture);
   }
 
   @GetMapping

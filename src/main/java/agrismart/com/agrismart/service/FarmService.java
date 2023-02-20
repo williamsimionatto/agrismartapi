@@ -40,9 +40,14 @@ public class FarmService {
     }
 
     public void delete(Long id) {
-        if (!farmRepository.existsById(id)) {
+        if (!exists(id)) {
             throw new ObjectnotFoundException("Farm not found");
         }
+
         farmRepository.deleteById(id);
+    }
+
+    public Boolean exists(Long id) {
+        return farmRepository.existsById(id);
     }
 }
