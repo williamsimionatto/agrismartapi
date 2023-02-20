@@ -33,7 +33,7 @@ public class FarmController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Farm> getMovie(@PathVariable Long id) {
+    public ResponseEntity<Farm> getFarm(@PathVariable Long id) {
         Farm farm = farmService.getFarm(id);
         return new ResponseEntity<Farm>(farm, HttpStatus.OK);
     }
