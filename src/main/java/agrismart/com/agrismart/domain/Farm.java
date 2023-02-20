@@ -5,6 +5,9 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Getter
 @Setter
@@ -23,6 +26,10 @@ public class Farm implements Serializable {
     @NonNull
     @Column
     private String address;
+
+    @OneToMany(mappedBy = "farm", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List<Pasture> pastures;
 
     public Farm(AddFarmDTO farm) {
         this.name = farm.getName();

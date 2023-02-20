@@ -2,6 +2,8 @@ package agrismart.com.agrismart.domain;
 
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import agrismart.com.agrismart.dto.pasture.AddPastureDTO;
 import io.micrometer.common.lang.NonNull;
 import jakarta.persistence.Column;
@@ -37,6 +39,7 @@ public class Pasture implements Serializable {
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "farm_id", nullable = false)
+  @JsonBackReference
   private Farm farm;
 
   public Pasture(AddPastureDTO pasture) {
