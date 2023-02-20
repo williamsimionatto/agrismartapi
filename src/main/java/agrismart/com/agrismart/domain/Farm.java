@@ -27,9 +27,6 @@ public class Farm implements Serializable {
     @Column
     private String address;
 
-    @OneToMany(mappedBy = "farm", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Pasture> pastures = new ArrayList<>();
-
     public Farm(AddFarmDTO farm) {
         this.name = farm.getName();
         this.address = farm.getAddress();

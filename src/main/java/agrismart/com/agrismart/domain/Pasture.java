@@ -2,6 +2,7 @@ package agrismart.com.agrismart.domain;
 
 import java.io.Serializable;
 
+import agrismart.com.agrismart.dto.pasture.AddPastureDTO;
 import io.micrometer.common.lang.NonNull;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -37,4 +38,9 @@ public class Pasture implements Serializable {
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "farm_id", nullable = false)
   private Farm farm;
+
+  public Pasture(AddPastureDTO pasture) {
+    this.name = pasture.getName();
+    this.area = pasture.getArea();
+  }
 }
