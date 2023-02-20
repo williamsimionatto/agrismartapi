@@ -1,5 +1,8 @@
 package agrismart.com.agrismart.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -24,6 +27,9 @@ public class Farm implements Serializable {
     @NonNull
     @Column
     private String address;
+
+    @OneToMany(mappedBy = "farm", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Pasture> pastures = new ArrayList<>();
 
     public Farm(AddFarmDTO farm) {
         this.name = farm.getName();
