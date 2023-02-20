@@ -30,4 +30,11 @@ public class FarmService {
         Farm newFarm = new Farm(farm);
         return farmRepository.save(newFarm);
     }
+
+    public Farm update(Long id, AddFarmDTO farm) {
+        Farm newFarm = getFarm(id);
+        newFarm.setName(farm.getName());
+        newFarm.setAddress(farm.getAddress());
+        return farmRepository.save(newFarm);
+    }
 }

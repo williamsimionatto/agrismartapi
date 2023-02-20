@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -38,5 +39,11 @@ public class FarmController {
     public ResponseEntity<Farm> createFarm(@RequestBody AddFarmDTO data) {
         Farm farm = farmService.save(data);
         return new ResponseEntity<Farm>(farm, HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Farm> updateFarm(@PathVariable Long id, @RequestBody AddFarmDTO data) {
+        Farm farm = farmService.update(id, data);
+        return new ResponseEntity<Farm>(farm, HttpStatus.OK);
     }
 }
