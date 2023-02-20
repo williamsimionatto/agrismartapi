@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import agrismart.com.agrismart.domain.Farm;
 import agrismart.com.agrismart.dto.AddFarmDTO;
 import agrismart.com.agrismart.service.FarmService;
+import agrismart.com.agrismart.service.exceptions.ObjectnotFoundException;
 
 @RestController
 @RequestMapping("/api/farm")
@@ -50,7 +51,13 @@ public class FarmController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Farm> deleteFarm(@PathVariable Long id) {
-        farmService.delete(id);
-        return new ResponseEntity<Farm>(HttpStatus.NO_CONTENT);
+        try {
+            farmService.delete(id);
+            return new ResponseEntity<Farm>(HttpStatus.NO_CONTENT);
+        }  catch (ObjectnotFoundException e) {
+            return new ResponseEntity<Farm>(HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            return new ResponseEntity<Farm>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

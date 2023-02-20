@@ -31,20 +31,17 @@ public class FarmService {
         return farmRepository.save(newFarm);
     }
 
-    public Farm update(Long id, AddFarmDTO farm) {
-        Farm newFarm = getFarm(id);
-        newFarm.setName(farm.getName());
-        newFarm.setAddress(farm.getAddress());
-        return farmRepository.save(newFarm);
+    public Farm update(Long id, AddFarmDTO data) {
+        Farm farm = getFarm(id);
+        farm.setName(data.getName());
+        farm.setAddress(data.getAddress());
+        return farmRepository.save(farm);
     }
 
     public void delete(Long id) {
-        Farm farm = getFarm(id);
-
-        if (farm == null) {
+        if (!farmRepository.existsById(id)) {
             throw new ObjectnotFoundException("Farm not found");
         }
- 
         farmRepository.deleteById(id);
     }
 }
