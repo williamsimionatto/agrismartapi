@@ -3,6 +3,7 @@ package agrismart.com.agrismart.domain;
 import java.io.Serializable;
 
 import agrismart.com.agrismart.domain.enums.Role;
+import agrismart.com.agrismart.dto.user.AddUserDTO;
 import io.micrometer.common.lang.NonNull;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.Column;
@@ -43,4 +44,10 @@ public class User implements Serializable {
   @Nullable
   @Column(name = "farm_id")
   private Long farmId;
+
+  public User(AddUserDTO data) {
+    this.userName = data.getUserName();
+    this.role = data.getRole();
+    this.farmId = data.getFarmId();
+  }
 }
