@@ -2,6 +2,7 @@ package agrismart.com.agrismart.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,12 +31,12 @@ public class PastureController {
 
   @PostMapping
   public ResponseEntity<Pasture> createPasture(@RequestBody AddPastureDTO data) {
-      if (!farmService.exists(data.getFarmId())) {
-        throw new ObjectnotFoundException("Farm: " + data.getFarmId() + " not found");
-      }
+    if (!farmService.exists(data.getFarmId())) {
+      throw new ObjectnotFoundException("Farm: " + data.getFarmId() + " not found");
+    }
 
-      Pasture pasture = pastureService.save(data);
-      return ResponseEntity.ok(pasture);
+    Pasture pasture = pastureService.save(data);
+    return ResponseEntity.ok(pasture);
   }
 
   @GetMapping
@@ -64,5 +65,11 @@ public class PastureController {
 
     Pasture updatedPasture = pastureService.edit(id, data);
     return ResponseEntity.ok(updatedPasture);
+  }
+
+  @DeleteMapping("/{id}")
+  public ResponseEntity<Void> deletePasture(@PathVariable Long id) {
+    pastureService.delete(id);
+    return ResponseEntity.noContent().build();
   }
 }

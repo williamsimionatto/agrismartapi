@@ -47,4 +47,9 @@ public class PastureService {
   public List<Pasture> getPasturesByFarmId(Long farmId) {
     return pastureRepository.getPasturesByFarmId(farmId);
   }
+
+  public void delete(Long id) {
+    Pasture pasture = getPasture(id);
+    pastureRepository.delete(pasture);
+  }
 }
