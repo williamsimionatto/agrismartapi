@@ -43,4 +43,8 @@ public class PastureService {
     pasture.setArea(data.getArea());
     return pastureRepository.save(pasture);
   }
+
+  public List<Pasture> getPasturesByFarmId(Long farmId) {
+    return pastureRepository.getPasturesByFarmId(farmId);
+  }
 }
