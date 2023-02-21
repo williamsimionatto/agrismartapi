@@ -50,6 +50,12 @@ public class PastureController {
     return ResponseEntity.ok(pasture);
   }
 
+  @GetMapping("/farm/{farmId}")
+  public ResponseEntity<List<Pasture>> getPasturesByFarm(@PathVariable Long farmId) {
+    List<Pasture> pastures = pastureService.getPasturesByFarmId(farmId);
+    return ResponseEntity.ok(pastures);
+  }
+
   @PutMapping("/{id}")
   public ResponseEntity<Pasture> updatePasture(@PathVariable Long id, @RequestBody EditPastureDTO data) {
     if (!farmService.exists(data.getFarmId())) {
@@ -58,11 +64,5 @@ public class PastureController {
 
     Pasture updatedPasture = pastureService.edit(id, data);
     return ResponseEntity.ok(updatedPasture);
-  }
-
-  @GetMapping("/farm/{farmId}")
-  public ResponseEntity<List<Pasture>> getPasturesByFarm(@PathVariable Long farmId) {
-    List<Pasture> pastures = pastureService.getPasturesByFarmId(farmId);
-    return ResponseEntity.ok(pastures);
   }
 }
