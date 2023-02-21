@@ -120,3 +120,6 @@ CREATE TABLE IF NOT EXISTS user (
   farm_id INT NOT NULL,
   FOREIGN KEY (farm_id) REFERENCES farm(id)
 );
+
+ALTER TABLE user CHANGE username user_name VARCHAR(255) NOT NULL UNIQUE;
+ALTER TABLE user CHANGE role role ENUM('ADMIN', 'VET', "FARMER") NOT NULL;
