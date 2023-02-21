@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.Optional;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
@@ -15,8 +16,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private UserRepository userRepository;
 
     public UserDetails loadUserByUsername(String userName) {
-        User user = userRepository.findByUserName(userName);
-        if (user != null) {
+        Optional<User> data = userRepository.findByUserName(userName);
+        if (data.isPresent()) {
+            User user = data.get();
             return new org.springframework.security.core.userdetails.User(
                 user.getUserName(),
                 user.getPassword(),
