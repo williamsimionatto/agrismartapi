@@ -1,13 +1,17 @@
 package agrismart.com.agrismart.config;
 
+import agrismart.com.agrismart.security.JwtConfigurer;
+import agrismart.com.agrismart.security.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -16,26 +20,41 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableMethodSecurity
 public class WebSecurityConfig {
     @Autowired
-    private UserDetailsService userDetailsService;
-
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
-    }
+    private JwtTokenProvider tokenProvider;
 
     @Bean
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests(
-            (authorize) -> authorize
-            .requestMatchers("/api/auth/login").permitAll()
-            .anyRequest().permitAll()
-        );
-
-        http.csrf().ignoringRequestMatchers("/api/**");
-        return http.build();
+        return http
+                .httpBasic().disable()
+                .csrf(AbstractHttpConfigurer::disable)
+                .sessionManagement(
+                    session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                )
+                .authorizeHttpRequests(
+                    authorizeHttpRequests ->
+                        authorizeHttpRequests
+                        .requestMatchers(
+                            "/api/auth/login",
+                            "/api/auth/refresh/**"
+                        ).permitAll()
+                        .requestMatchers("/api/**").authenticated()
+                        .requestMatchers("/users").denyAll()
+                )
+                .cors()
+                .and()
+                .apply(new JwtConfigurer(tokenProvider))
+                .and()
+                .build();
     }
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
+        throws Exception {
+        return authenticationConfiguration.getAuthenticationManager();
     }
 }

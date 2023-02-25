@@ -20,11 +20,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         if (data.isPresent()) {
             User user = data.get();
             return new org.springframework.security.core.userdetails.User(
-                user.getUserName(),
+                user.getUsername(),
                 user.getPassword(),
                 new HashSet<>()
             );
         }
         return null;
     }
+
+
 }

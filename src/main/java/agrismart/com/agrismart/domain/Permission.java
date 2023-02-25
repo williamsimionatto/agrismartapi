@@ -8,14 +8,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 
-import java.io.Serializable;
-
 @Entity(name = "permission")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Permission implements GrantedAuthority, Serializable {
+public class Permission implements GrantedAuthority {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
