@@ -1,4 +1,4 @@
-package agrismart.com.agrismart.domain.controller;
+package agrismart.com.agrismart.controller;
 
 
 import agrismart.com.agrismart.dto.user.Auth;
