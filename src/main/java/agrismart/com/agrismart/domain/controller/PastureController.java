@@ -1,4 +1,4 @@
-package agrismart.com.agrismart.controller;
+package agrismart.com.agrismart.domain.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

@@ -1,4 +1,4 @@
-package agrismart.com.agrismart.controller;
+package agrismart.com.agrismart.domain.controller;
 
 import java.util.List;
 
