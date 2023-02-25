@@ -123,3 +123,26 @@ CREATE TABLE IF NOT EXISTS user (
 
 ALTER TABLE user CHANGE username user_name VARCHAR(255) NOT NULL UNIQUE;
 ALTER TABLE user CHANGE role role ENUM('ADMIN', 'VET', "FARMER") NOT NULL;
+
+CREATE TABLE IF NOT EXISTS permission (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  name VARCHAR(255) NOT NULL,
+  slug VARCHAR(255) NOT NULL,
+  UNIQUE (slug)
+);
+
+INSERT INTO permission (name, slug) VALUES
+    ('Administrador', "ADMIN"),
+    ('Fazendeiro', "FARMER"),
+    ('Veterinário', "VET");
+
+CREATE TABLE IF NOT EXISTS user_permission (
+    user_id INT NOT NULL,
+    permission_id INT NOT NULL,
+    PRIMARY KEY (user_id, permission_id),
+    FOREIGN KEY (user_id) REFERENCES user(id),
+    FOREIGN KEY (permission_id) REFERENCES permission(id)
+);
+
+INSERT INTO user_permission (user_id, permission_id) VALUES
+    (1, 1);
