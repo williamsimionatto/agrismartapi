@@ -46,4 +46,11 @@ public class UserService {
 
     return usersDTO;
   }
+
+  public UserDTO findById(Long id) {
+    User user = userRepository.findById(id).orElseThrow(() -> new ObjectnotFoundException("User not found"));
+    UserDTO userDTO = new UserDTO(user);
+    userDTO.setFarm(farmService.getFarm(userDTO.getFarmId()));
+    return userDTO;
+  }
 }
