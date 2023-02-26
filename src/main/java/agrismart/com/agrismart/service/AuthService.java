@@ -5,7 +5,6 @@ import agrismart.com.agrismart.dto.user.Token;
 import agrismart.com.agrismart.repository.UserRepository;
 import agrismart.com.agrismart.security.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
@@ -21,7 +20,7 @@ public class AuthService {
     @Autowired
     private UserRepository repository;
 
-    public ResponseEntity<Token> singin(Auth auth) throws Exception {
+    public Token singin(Auth auth) throws Exception {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(auth.getUserName(), auth.getPassword()));
 
@@ -32,7 +31,7 @@ public class AuthService {
             } else {
                 throw new Exception("Account not found!");
             }
-            return ResponseEntity.ok(token);
+            return token;
         } catch (Exception e) {
             throw new Exception("Invalid Credentials");
         }

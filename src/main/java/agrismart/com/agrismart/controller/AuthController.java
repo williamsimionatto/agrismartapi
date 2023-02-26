@@ -2,6 +2,7 @@ package agrismart.com.agrismart.controller;
 
 
 import agrismart.com.agrismart.dto.user.Auth;
+import agrismart.com.agrismart.dto.user.Token;
 import agrismart.com.agrismart.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,13 +19,13 @@ public class AuthController {
     private AuthService authService;
 
     @PostMapping("/login")
-    public ResponseEntity login(@RequestBody Auth data) throws Exception {
+    public ResponseEntity<Token> login(@RequestBody Auth data) throws Exception {
         var token = authService.singin(data);
 
         if (token == null) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Invalid Credentials");
+            return new ResponseEntity<Token>(HttpStatus.FORBIDDEN);
         }
 
-        return token;
+        return ResponseEntity.ok(token);
     }
 }
