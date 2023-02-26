@@ -11,6 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import agrismart.com.agrismart.dto.user.AddUserDTO;
+import agrismart.com.agrismart.dto.user.EditUserDTO;
 import agrismart.com.agrismart.dto.user.UserDTO;
 import agrismart.com.agrismart.service.exceptions.ObjectnotFoundException;
 
@@ -52,5 +53,18 @@ public class UserService {
     UserDTO userDTO = new UserDTO(user);
     userDTO.setFarm(farmService.getFarm(userDTO.getFarmId()));
     return userDTO;
+  }
+
+  public UserDTO edit(Long id, EditUserDTO data) {
+    User user = userRepository.findById(id).orElseThrow(() -> new ObjectnotFoundException("User not found"));
+
+    if (!farmService.exists(data.getFarmId())) {
+      throw new ObjectnotFoundException("Farm not found");
+    }
+
+    user.setUserName(data.getUserName());
+    user.setFarmId(data.getFarmId());
+    user.setRole(data.getRole());
+    return new UserDTO(userRepository.save(user));
   }
 }
