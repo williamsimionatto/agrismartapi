@@ -38,6 +38,12 @@ public class UserService {
 
   public List<UserDTO> findAll() {
     List<User> users = userRepository.findAll();
-    return users.stream().map(UserDTO::new).collect(Collectors.toList());
+    List<UserDTO> usersDTO = users.stream().map(UserDTO::new).collect(Collectors.toList());
+
+    usersDTO.forEach(user -> {
+      user.setFarm(farmService.getFarm(user.getFarmId()));
+    });
+
+    return usersDTO;
   }
 }
